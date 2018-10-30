@@ -10,11 +10,19 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 import hello.wsdl.GetCountryRequest;
 import hello.wsdl.GetCountryResponse;
 
+// Might want to move the cleanup/stringify elsewhere
+//
+// Work on basis we might need to get stuff from SOAP, but emphasis should be that anything we pass back is rest
+// Realistically for BSP we'll just want getCountry, which passes a straight Country object
+// other objects are string (getCountryString), Country in httpResponse (getRestCountry) or even xml ish (getSoapCountry)
+
+
+
 public class CountrySoapClient extends WebServiceGatewaySupport {
 
     // Not sure this is right place, but will do for now
     private String stringify(GetCountryResponse response) {
-        return String.format("name: %s, capital: %s, currency: %s, population: %d",
+        return String.format("SOAP >> name: %s, capital: %s, currency: %s, population: %d",
                 response.getCountry().getName(),
                 response.getCountry().getCapital(),
                 response.getCountry().getCurrency(),
@@ -56,20 +64,17 @@ public class CountrySoapClient extends WebServiceGatewaySupport {
     }
 
     // Avoid cluttering upp the Endpoint.  Do we need to decide if it's been a success??
-    public ResponseEntity<Country> getCountryResponse(String countryName){
+    public ResponseEntity<Country> getRestCountry(String countryName){
 
         // Assume for now it's all good
         Country country=getCountry(countryName);
         return new ResponseEntity<>(country,HttpStatus.OK);
     }
 
-
     // Return in string format
     public String getCountryString(String country) {
+
         return stringify(getSoapCountry(country));
     }
-
-    // Return as "raw" object
-
 
 }
