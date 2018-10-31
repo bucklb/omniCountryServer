@@ -1,4 +1,4 @@
-package bucklb.soapserver;
+package hello;
 
 
 import hello.wsdl.Country;

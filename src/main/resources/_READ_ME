@@ -1,0 +1,35 @@
+Idea is to investigate a server that exposes a rest controller, but can use soap or rest server to do things
+
+To demonstrate
+- need to have soapCountryServer running (on 8080) and restCountryServer running (on 9090)
+
+Server starts in "rest" mode (so can get Australia, Italy or Japan)
+
+    http://localhost:8081/country?country=Australia
+
+    or get as string which explicitly details the source
+    http://localhost:8081/countryString?country=Australia
+
+then put in to soap mode (where countries are United Kingdom, Spain, Poland) using Postman as it's a POST
+(in a production environment I suspect that a CURL command would be needed, give or take authentication)
+    http://localhost:8081/setMode?mode=soap
+
+Can now get Poland, but not Australia
+    http://localhost:8081/country?country=Poland
+    http://localhost:8081/country?country=Australia
+
+
+Main thrust is to get a few generic restful endpoints that can be tweaked as to where they look.  That said it is
+possible to call the soap & rest options rather explicitly
+    http://localhost:8081/soap?country=Poland
+    http://localhost:8081/soapString?country=Poland
+    http://localhost:8081/rest?country=Australia
+    http://localhost:8081/restString?country=Australia
+
+
+
+URGENTLY need to
+    deal better with "not found" scenarios
+    lock down the modes that can be set
+
+
