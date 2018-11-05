@@ -70,18 +70,26 @@
 						</goals>
 					</execution>
 				</executions>
+
+				<!-- Haven't found a way to generate from local copy of wsdl, but seems plausible to use xsd (that is root of the wsdl) -->
+				<configuration>
+					<generatePackage>hello.wsdl</generatePackage>
+					<schemaDirectory>src/main/resources</schemaDirectory>
+				</configuration>
+
+				<!-- Generate from a WSDL of a server that's running (so fails if the server isn't running or not on the expected port -->
+				<!--
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generatePackage>hello.wsdl</generatePackage>
 					<schemas>
 						<schema>
-							<!-- I suspect that if the server port changes probably need to change this too
-                                 and seems likely that the server ought to be running when attempting to do
-                                 the (auto) generate -->
 							<url>http://localhost:8080/ws/countries.wsdl</url>
 						</schema>
 					</schemas>
 				</configuration>
+				-->
+
 			</plugin>
 			<!-- end::wsdl[] -->
 
