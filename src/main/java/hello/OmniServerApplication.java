@@ -18,7 +18,7 @@ public class OmniServerApplication {
 
 	// This is about as much as seems to be needed to get things moving.
 	public static void main(String[] args) {
-		System.out.println("in MAIN");
+		System.out.println("in MAIN and want to check what Travis CI does");
 		SpringApplication.run(OmniServerApplication.class, args);
 	}
 }
